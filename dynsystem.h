@@ -15,6 +15,8 @@ public:
     double t() const {return t_;}
     double dt() const {return dt_;}
 
+    void step();
+
 private:
     double m_;
     double gamma_;
