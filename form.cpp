@@ -3,7 +3,7 @@
 #include <QLayout>
 
 Form::Form(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent), system(nullptr)
 {
     labelM = new QLabel("mass");
     labelGamma = new QLabel("gamma");

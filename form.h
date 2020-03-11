@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include <QTextEdit>
 
+#include "dynsystem.h"
+
 class Form : public QWidget
 {
     Q_OBJECT
@@ -14,6 +16,9 @@ class Form : public QWidget
 public:
     Form(QWidget *parent = nullptr);
     ~Form();
+
+public slots:
+    void startCalculation();
 
 private:
     QLabel *labelM;
@@ -31,5 +36,7 @@ private:
     QPushButton *pushButtonStart;
     QPushButton *pushButtonStop;
     QTextEdit *textEditLog;
+
+    DynSystem *system;
 };
 #endif // FORM_H
