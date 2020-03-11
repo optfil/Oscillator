@@ -100,5 +100,17 @@ void Form::startCalculation()
     textEditLog->append("system created");
     textEditLog->append("parameters:");
     textEditLog->append("mass = " + QString::number(system->m()));
+    textEditLog->append(QString("%1\t%2\t%3")
+                        .arg(system->t())
+                        .arg(system->x())
+                        .arg(system->v()));
+    for (int i = 0; i < 1000; ++i)
+    {
+        system->step();
+        textEditLog->append(QString("%1\t%2\t%3")
+                            .arg(system->t())
+                            .arg(system->x())
+                            .arg(system->v()));
+    }
 }
 
