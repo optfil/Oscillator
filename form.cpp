@@ -83,11 +83,13 @@ Form::Form(QWidget *parent)
 
 Form::~Form()
 {
+    delete system;
 }
 
 void Form::startCalculation()
 {
     textEditLog->clear();
+    delete system;
     system = new DynSystem(doubleSpinBoxM->value(),
                            doubleSpinBoxGamma->value(),
                            doubleSpinBoxK->value(),
