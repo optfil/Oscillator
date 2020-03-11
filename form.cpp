@@ -81,3 +81,17 @@ Form::~Form()
 {
 }
 
+void Form::startCalculation()
+{
+    system = new DynSystem(doubleSpinBoxM->value(),
+                           doubleSpinBoxGamma->value(),
+                           doubleSpinBoxK->value(),
+                           doubleSpinBoxInitX->value(),
+                           doubleSpinBoxInitV->value(),
+                           0.0,
+                           doubleSpinBoxDt->value());
+    textEditLog->append("system created");
+    textEditLog->append("parameters:");
+    textEditLog->append("mass = " + QString::number(system->m()));
+}
+
