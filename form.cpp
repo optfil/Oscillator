@@ -75,6 +75,9 @@ Form::Form(QWidget *parent)
     layoutMain->addWidget(textEditLog);
 
     this->setLayout(layoutMain);
+
+    //Qt4: connect(pushButtonStart, SIGNAL(clicked()), this, SLOT(startCalculation()));
+    connect(pushButtonStart, &QPushButton::clicked, this, &Form::startCalculation);
 }
 
 Form::~Form()
