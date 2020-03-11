@@ -13,11 +13,38 @@ Form::Form(QWidget *parent)
     labelDt = new QLabel("time step");
 
     doubleSpinBoxM = new QDoubleSpinBox;
+    doubleSpinBoxM->setMinimum(1.0);
+    doubleSpinBoxM->setMaximum(100.0);
+    doubleSpinBoxM->setSingleStep(1.0);
+    doubleSpinBoxM->setDecimals(2);
     doubleSpinBoxGamma = new QDoubleSpinBox;
+    doubleSpinBoxGamma->setMinimum(-100.0);
+    doubleSpinBoxGamma->setMaximum(100.0);
+    doubleSpinBoxGamma->setSingleStep(1.0);
+    doubleSpinBoxGamma->setDecimals(2);
     doubleSpinBoxK = new QDoubleSpinBox;
+    doubleSpinBoxK->setMinimum(1.0);
+    doubleSpinBoxK->setMaximum(100.0);
+    doubleSpinBoxK->setSingleStep(1.0);
+    doubleSpinBoxK->setDecimals(2);
     doubleSpinBoxInitX = new QDoubleSpinBox;
+    doubleSpinBoxInitX->setMinimum(-100.0);
+    doubleSpinBoxInitX->setMaximum(100.0);
+    doubleSpinBoxInitX->setSingleStep(1.0);
+    doubleSpinBoxInitX->setDecimals(2);
     doubleSpinBoxInitV = new QDoubleSpinBox;
+    doubleSpinBoxInitV->setMinimum(-100.0);
+    doubleSpinBoxInitV->setMaximum(100.0);
+    doubleSpinBoxInitV->setSingleStep(1.0);
+    doubleSpinBoxInitV->setDecimals(2);
     doubleSpinBoxDt = new QDoubleSpinBox;
+    doubleSpinBoxDt->setMinimum(1e-6);
+    doubleSpinBoxDt->setMaximum(1.0);
+    doubleSpinBoxDt->setSingleStep(0.001);
+    doubleSpinBoxDt->setDecimals(6);
+    doubleSpinBoxDt->setValue(0.001);
+
+    doubleSpinBoxInitX->setValue(1.0);
 
     pushButtonStart = new QPushButton("Start");
     pushButtonStop = new QPushButton("Stop");
