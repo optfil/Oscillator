@@ -50,6 +50,7 @@ Form::Form(QWidget *parent)
     pushButtonStop = new QPushButton("Stop");
 
     textEditLog = new QTextEdit;
+    textEditLog->setReadOnly(true);
 
     QGridLayout *layoutParameters = new QGridLayout;
     layoutParameters->addWidget(labelM, 0, 0);
@@ -86,6 +87,7 @@ Form::~Form()
 
 void Form::startCalculation()
 {
+    textEditLog->clear();
     system = new DynSystem(doubleSpinBoxM->value(),
                            doubleSpinBoxGamma->value(),
                            doubleSpinBoxK->value(),
