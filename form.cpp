@@ -6,7 +6,7 @@ Form::Form(QWidget *parent)
     : QWidget(parent), system(nullptr)
 {
     timer = new QTimer(this);
-    timer->setInterval(1000);
+    timer->setInterval(0);
 
     labelM = new QLabel("mass");
     labelGamma = new QLabel("gamma");
@@ -113,10 +113,13 @@ void Form::startCalculation()
 
 void Form::makeStep()
 {
-    system->step();
-    textEditLog->append(QString("%1\t%2\t%3")
-                        .arg(system->t())
-                        .arg(system->x())
-                        .arg(system->v()));
+    for (int i = 0; i < 10; ++i)
+    {
+        system->step();
+        textEditLog->append(QString("%1\t%2\t%3")
+                            .arg(system->t())
+                            .arg(system->x())
+                           .arg(system->v()));
+    }
 }
 
