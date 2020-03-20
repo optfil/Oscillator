@@ -82,6 +82,7 @@ Form::Form(QWidget *parent)
 
     //Qt4: connect(pushButtonStart, SIGNAL(clicked()), this, SLOT(startCalculation()));
     connect(pushButtonStart, &QPushButton::clicked, this, &Form::startCalculation);
+    connect(timer, &QTimer::timeout, this, &Form::makeStep);
 }
 
 Form::~Form()
@@ -107,13 +108,15 @@ void Form::startCalculation()
                         .arg(system->t())
                         .arg(system->x())
                         .arg(system->v()));
-    for (int i = 0; i < 30000; ++i)
-    {
-        system->step();
-        textEditLog->append(QString("%1\t%2\t%3")
-                            .arg(system->t())
-                            .arg(system->x())
-                            .arg(system->v()));
-    }
+    timer->start();
+}
+
+void Form::makeStep()
+{
+    system->step();
+    textEditLog->append(QString("%1\t%2\t%3")
+                        .arg(system->t())
+                        .arg(system->x())
+                        .arg(system->v()));
 }
 
