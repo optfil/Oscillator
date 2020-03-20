@@ -21,6 +21,7 @@ public:
 
 public slots:
     void startCalculation();
+    void stopCalculation();
     void makeStep();
 
 private:

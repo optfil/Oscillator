@@ -82,6 +82,7 @@ Form::Form(QWidget *parent)
 
     //Qt4: connect(pushButtonStart, SIGNAL(clicked()), this, SLOT(startCalculation()));
     connect(pushButtonStart, &QPushButton::clicked, this, &Form::startCalculation);
+    connect(pushButtonStop, &QPushButton::clicked, this, &Form::stopCalculation);
     connect(timer, &QTimer::timeout, this, &Form::makeStep);
 }
 
@@ -109,6 +110,11 @@ void Form::startCalculation()
                         .arg(system->x())
                         .arg(system->v()));
     timer->start();
+}
+
+void Form::stopCalculation()
+{
+    timer->stop();
 }
 
 void Form::makeStep()
