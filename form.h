@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include <QTextEdit>
 
+#include <QTimer>
+
 #include "dynsystem.h"
 
 class Form : public QWidget
@@ -36,6 +38,8 @@ private:
     QPushButton *pushButtonStart;
     QPushButton *pushButtonStop;
     QTextEdit *textEditLog;
+
+    QTimer * timer;
 
     DynSystem *system;
 };

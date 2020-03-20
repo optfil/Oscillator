@@ -5,6 +5,9 @@
 Form::Form(QWidget *parent)
     : QWidget(parent), system(nullptr)
 {
+    timer = new QTimer(this);
+    timer->setInterval(1000);
+
     labelM = new QLabel("mass");
     labelGamma = new QLabel("gamma");
     labelK = new QLabel("rigidity");
@@ -104,7 +107,7 @@ void Form::startCalculation()
                         .arg(system->t())
                         .arg(system->x())
                         .arg(system->v()));
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < 30000; ++i)
     {
         system->step();
         textEditLog->append(QString("%1\t%2\t%3")
