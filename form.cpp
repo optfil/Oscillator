@@ -2,11 +2,20 @@
 
 #include <QLayout>
 
+#include <qwt_plot_legenditem.h>
+
 Form::Form(QWidget *parent)
     : QWidget(parent), system(nullptr)
 {
     timer = new QTimer(this);
     timer->setInterval(0);
+
+    curveTimeCoordinate = new QwtPlotCurve("coordinate");
+    curveTimeCoordinate->setPen(Qt::red, 3.0);
+    curveTimeVelocity = new QwtPlotCurve("velocity");
+    curveTimeVelocity->setPen(Qt::blue, 3.0, Qt::DotLine);
+    curveCoordinateVelocity = new QwtPlotCurve;
+    curveCoordinateVelocity->setPen(Qt::green, 3.0);
 
     labelM = new QLabel("mass");
     labelGamma = new QLabel("gamma");
@@ -65,6 +74,18 @@ Form::Form(QWidget *parent)
     plotPhase->setAxisTitle(QwtPlot::yLeft, "Velocity");
     plotPhase->setAxisTitle(QwtPlot::xBottom, "Coordinate");
 
+    curveTimeCoordinate->attach(plotTime);
+    curveTimeCoordinate->setAxes(QwtPlot::xBottom, QwtPlot::yLeft);
+    curveTimeVelocity->attach(plotTime);
+    curveTimeVelocity->setAxes(QwtPlot::xBottom, QwtPlot::yRight);
+    curveCoordinateVelocity->attach(plotPhase);
+    curveCoordinateVelocity->setAxes(QwtPlot::xBottom, QwtPlot::yLeft);
+
+    QwtPlotLegendItem *legendTime = new QwtPlotLegendItem;
+    legendTime->attach(plotTime);
+    legendTime->setAlignment(Qt::AlignRight);
+    legendTime->setMaxColumns(1);
+
     QGridLayout *layoutParameters = new QGridLayout;
     layoutParameters->addWidget(labelM, 0, 0);
     layoutParameters->addWidget(labelGamma, 1, 0);
@@ -112,6 +133,9 @@ Form::~Form()
 void Form::startCalculation()
 {
     textEditLog->clear();
+    dataT.clear();
+    dataX.clear();
+    dataV.clear();
     delete system;
     system = new DynSystem(doubleSpinBoxM->value(),
                            doubleSpinBoxGamma->value(),
@@ -127,6 +151,13 @@ void Form::startCalculation()
                         .arg(system->t())
                         .arg(system->x())
                         .arg(system->v()));
+
+    curveTimeCoordinate->setSamples(dataT, dataX);
+    curveTimeVelocity->setSamples(dataT, dataV);
+    curveCoordinateVelocity->setSamples(dataX, dataV);
+    plotTime->replot();
+    plotPhase->replot();
+
     timer->start();
 }
 
@@ -138,12 +169,21 @@ void Form::stopCalculation()
 void Form::makeStep()
 {
     for (int i = 0; i < 10; ++i)
-    {
         system->step();
-        textEditLog->append(QString("%1\t%2\t%3")
-                            .arg(system->t())
-                            .arg(system->x())
-                           .arg(system->v()));
-    }
+
+    textEditLog->append(QString("%1\t%2\t%3")
+                        .arg(system->t())
+                        .arg(system->x())
+                        .arg(system->v()));
+    dataT.append(system->t());
+    dataX.append(system->x());
+    dataV.append(system->v());
+
+    curveTimeCoordinate->setSamples(dataT, dataX);
+    curveTimeVelocity->setSamples(dataT, dataV);
+    curveCoordinateVelocity->setSamples(dataX, dataV);
+
+    plotTime->replot();
+    plotPhase->replot();
 }
 

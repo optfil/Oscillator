@@ -10,6 +10,7 @@
 #include <QTimer>
 
 #include <qwt_plot.h>
+#include <qwt_plot_curve.h>
 
 #include "dynsystem.h"
 
@@ -48,6 +49,14 @@ private:
 
     QTimer * timer;
 
+    QwtPlotCurve *curveTimeCoordinate;
+    QwtPlotCurve *curveTimeVelocity;
+    QwtPlotCurve *curveCoordinateVelocity;
+
     DynSystem *system;
+
+    QVector<double> dataT;
+    QVector<double> dataX;
+    QVector<double> dataV;
 };
 #endif // FORM_H
