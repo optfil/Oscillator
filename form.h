@@ -9,6 +9,8 @@
 
 #include <QTimer>
 
+#include <qwt_plot.h>
+
 #include "dynsystem.h"
 
 class Form : public QWidget
@@ -40,6 +42,9 @@ private:
     QPushButton *pushButtonStart;
     QPushButton *pushButtonStop;
     QTextEdit *textEditLog;
+
+    QwtPlot *plotTime;
+    QwtPlot *plotPhase;
 
     QTimer * timer;
 

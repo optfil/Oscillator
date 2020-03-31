@@ -55,6 +55,16 @@ Form::Form(QWidget *parent)
     textEditLog = new QTextEdit;
     textEditLog->setReadOnly(true);
 
+    plotTime = new QwtPlot(QString("Time plots"));
+    plotTime->enableAxis(QwtPlot::yRight);
+    plotTime->setAxisTitle(QwtPlot::yLeft, "Coordinate");
+    plotTime->setAxisTitle(QwtPlot::xBottom, "Time");
+    plotTime->setAxisTitle(QwtPlot::yRight, "Velocity");
+
+    plotPhase = new QwtPlot(QString("Phase plane"));
+    plotPhase->setAxisTitle(QwtPlot::yLeft, "Velocity");
+    plotPhase->setAxisTitle(QwtPlot::xBottom, "Coordinate");
+
     QGridLayout *layoutParameters = new QGridLayout;
     layoutParameters->addWidget(labelM, 0, 0);
     layoutParameters->addWidget(labelGamma, 1, 0);
@@ -73,10 +83,18 @@ Form::Form(QWidget *parent)
     layoutButtons->addWidget(pushButtonStart);
     layoutButtons->addWidget(pushButtonStop);
 
-    QVBoxLayout *layoutMain = new QVBoxLayout;
-    layoutMain->addLayout(layoutParameters);
-    layoutMain->addLayout(layoutButtons);
-    layoutMain->addWidget(textEditLog);
+    QVBoxLayout *layoutLeft = new QVBoxLayout;
+    layoutLeft->addLayout(layoutParameters);
+    layoutLeft->addLayout(layoutButtons);
+    layoutLeft->addWidget(textEditLog);
+
+    QVBoxLayout *layoutPlots = new QVBoxLayout;
+    layoutPlots->addWidget(plotTime);
+    layoutPlots->addWidget(plotPhase);
+
+    QHBoxLayout *layoutMain = new QHBoxLayout;
+    layoutMain->addLayout(layoutLeft);
+    layoutMain->addLayout(layoutPlots);
 
     this->setLayout(layoutMain);
 
