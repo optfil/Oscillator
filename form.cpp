@@ -3,6 +3,7 @@
 #include <QLayout>
 
 #include <qwt_plot_legenditem.h>
+#include <qwt_plot_panner.h>
 
 Form::Form(QWidget *parent)
     : QWidget(parent), system(nullptr)
@@ -85,6 +86,8 @@ Form::Form(QWidget *parent)
     legendTime->attach(plotTime);
     legendTime->setAlignment(Qt::AlignRight);
     legendTime->setMaxColumns(1);
+
+    QwtPlotPanner *pannerPhase = new QwtPlotPanner(plotPhase->canvas());
 
     QGridLayout *layoutParameters = new QGridLayout;
     layoutParameters->addWidget(labelM, 0, 0);
