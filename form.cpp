@@ -4,6 +4,7 @@
 
 #include <qwt_plot_legenditem.h>
 #include <qwt_plot_panner.h>
+#include <qwt_plot_magnifier.h>
 
 Form::Form(QWidget *parent)
     : QWidget(parent), system(nullptr)
@@ -88,6 +89,10 @@ Form::Form(QWidget *parent)
     legendTime->setMaxColumns(1);
 
     QwtPlotPanner *pannerPhase = new QwtPlotPanner(plotPhase->canvas());
+
+    QwtPlotMagnifier *magnifierPhase = new QwtPlotMagnifier(plotPhase->canvas());
+    magnifierPhase->setWheelFactor(1.1);
+    magnifierPhase->setMouseButton(Qt::NoButton);
 
     QGridLayout *layoutParameters = new QGridLayout;
     layoutParameters->addWidget(labelM, 0, 0);
